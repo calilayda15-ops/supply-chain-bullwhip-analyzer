@@ -1,0 +1,71 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# STEP 1 AND 2: DEFINING LIBRARIES AND VARIABLES
+# Supply Chain Scenario: Weekly customer demand vs factory production volumes
+data = {
+    'Week': ['Week_1', 'Week_2', 'Week_3', 'Week_4', 'Week_5', 'Week_6'],
+    'Customer_Demand': [100, 110, 105, 120, 115, 130],      # Stable demand at the store
+    'Factory_Production': [100, 140, 80, 170, 75, 190]      # Fluctuating production due to bullwhip effect
+}
+
+# Converting data into a table (DataFrame)
+df = pd.DataFrame(data)
+
+print("--- STEP 1 AND 2: SUPPLY CHAIN DATASET ---")
+print(df)
+print("\n" + "="*50 + "\n")
+
+
+# STEP 3: MATHEMATICAL VARIANCE AND BULLWHIP EFFECT CALCULATION
+# Calculating the variance (fluctuation score) using np.var()
+customer_variance = np.var(df['Customer_Demand'])
+factory_variance = np.var(df['Factory_Production'])
+
+# Bullwhip Effect Score = Factory Variance / Customer Variance
+bullwhip_score = np.round(factory_variance / customer_variance, 2)
+
+print("--- STEP 3: NUMPY VARIANCE AND BULLWHIP SCORE ---")
+print(f"Customer Demand Variance: {np.round(customer_variance, 2)}")
+print(f"Factory Production Variance: {np.round(factory_variance, 2)}")
+print(f"Calculated Bullwhip Score: {bullwhip_score}")
+
+
+# STEP 4: OPERATIONAL ACTION AND STATUS LABELING
+print("\n" + "="*50 + "\n--- STEP 4: STRATEGIC MANAGEMENT REPORT ---")
+
+# If factory fluctuation is more than twice the customer fluctuation, trigger an alert
+if bullwhip_score > 2.0:
+    df['Status'] = 'INEFFICIENT (Bullwhip Effect Detected)'
+    action = "Switch to Just-In-Time (JIT) production model immediately to reduce inventory costs."
+else:
+    df['Status'] = 'STABLE AND EFFICIENT'
+    action = "Maintain current supply chain strategy."
+
+print(df[['Week', 'Customer_Demand', 'Factory_Production', 'Status']])
+print(f"\nManagement Advice: {action}\n")
+
+
+# STEP 5: CREATING LINE CHART WITH MATPLOTLIB
+plt.figure(figsize=(10, 6))
+
+# Plotting Customer Demand (stable blue line) and Factory Production (dashed red line)
+plt.plot(df['Week'], df['Customer_Demand'], marker='o', color='royalblue', linewidth=2.5, label='Customer Demand (Stable)')
+plt.plot(df['Week'], df['Factory_Production'], marker='s', color='crimson', linewidth=2.5, linestyle='--', label='Factory Production (Fluctuating)')
+
+# Chart titles and details
+plt.title(f'Supply Chain Demand Fluctuation (Bullwhip Score: {bullwhip_score})', fontsize=14, fontweight='bold')
+plt.xlabel('Time (Weekly Basis)', fontsize=11)
+plt.ylabel('Quantity (Units)', fontsize=11)
+plt.grid(True, linestyle=':', alpha=0.6)
+plt.legend(fontsize=11)
+
+# Saving the chart for your GitHub portfolio
+plt.savefig('supply_chain_bullwhip_report.png')
+plt.show()
+
+print("Analysis completed successfully. 'supply_chain_bullwhip_report.png' chart created.")
+
+
+
