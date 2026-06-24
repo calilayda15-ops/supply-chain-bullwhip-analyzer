@@ -1,0 +1,38 @@
+--- STEP 1 AND 2: SUPPLY CHAIN DATASET ---
+     Week  Customer_Demand  Factory_Production
+0  Week_1              100                 100
+1  Week_2              110                 140
+2  Week_3              105                  80
+3  Week_4              120                 170
+4  Week_5              115                  75
+5  Week_6              130                 190
+
+==================================================
+
+--- STEP 3: NUMPY VARIANCE AND BULLWHIP SCORE ---
+Customer Demand Variance: 97.22
+Factory Production Variance: 1936.81
+Calculated Bullwhip Score: 19.92
+
+==================================================
+--- STEP 4: STRATEGIC MANAGEMENT REPORT ---
+     Week  Customer_Demand  Factory_Production  \
+0  Week_1              100                 100   
+1  Week_2              110                 140   
+2  Week_3              105                  80   
+3  Week_4              120                 170   
+4  Week_5              115                  75   
+5  Week_6              130                 190   
+
+                                   Status  
+0  INEFFICIENT (Bullwhip Effect Detected)  
+1  INEFFICIENT (Bullwhip Effect Detected)  
+2  INEFFICIENT (Bullwhip Effect Detected)  
+3  INEFFICIENT (Bullwhip Effect Detected)  
+4  INEFFICIENT (Bullwhip Effect Detected)  
+5  INEFFICIENT (Bullwhip Effect Detected)  
+
+Management Advice: Switch to Just-In-Time (JIT) production model immediately to reduce inventory costs.
+
+Analysis completed successfully. 'supply_chain_bullwhip_report.png' chart created.
+
